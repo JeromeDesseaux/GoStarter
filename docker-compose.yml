@@ -1,7 +1,7 @@
-version: "3.3"
+version: "3.8"
 
 services:
-  database:
+  db:
     image: postgres
     restart: always
     volumes:
@@ -15,14 +15,16 @@ services:
   api:
     build: .
     restart: always
+    env_file:
+      - .env
     volumes:
       - .:/app
     ports:
       - 8080:8080
     depends_on:
-      - database
+      - db
     links:
-      - database
+      - db
 
 volumes:
   db:
